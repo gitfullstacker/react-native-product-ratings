@@ -1,6 +1,6 @@
 {
   "name": "react-native-product-ratings",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A customizable product rating component for React Native",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
