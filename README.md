@@ -48,9 +48,9 @@ yarn add react-native-product-ratings
 ### StarRating Component
 
 ```tsx
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { StarRating } from "react-native-product-ratings";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { StarRating } from 'react-native-product-ratings';
 
 const ProductRatingScreen = () => {
   return (
@@ -59,7 +59,7 @@ const ProductRatingScreen = () => {
         defaultRating={3.5}
         count={5}
         size={40}
-        onFinishRating={(rating) => console.log(`Rating is: ${rating}`)}
+        onFinishRating={rating => console.log(`Rating is: ${rating}`)}
         selectedColor="#FFD700"
         allowHalfRating={true}
       />
@@ -70,8 +70,8 @@ const ProductRatingScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 16,
   },
 });
@@ -82,9 +82,9 @@ export default ProductRatingScreen;
 ### Swipeable Rating Component
 
 ```tsx
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Rating } from "react-native-product-ratings";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Rating } from 'react-native-product-ratings';
 
 const SwipeRatingScreen = () => {
   return (
@@ -95,8 +95,8 @@ const SwipeRatingScreen = () => {
         count={5}
         size={50}
         showRating={true}
-        onSwipeRating={(rating) => console.log(`Current rating: ${rating}`)}
-        onFinishRating={(rating) => console.log(`Final rating: ${rating}`)}
+        onSwipeRating={rating => console.log(`Current rating: ${rating}`)}
+        onFinishRating={rating => console.log(`Final rating: ${rating}`)}
         selectedColor="#FF8C00"
       />
     </View>
@@ -106,14 +106,14 @@ const SwipeRatingScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 16,
-    backgroundColor: "#F5F5F5",
+    backgroundColor: '#F5F5F5',
   },
   title: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 20,
   },
 });
@@ -124,9 +124,9 @@ export default SwipeRatingScreen;
 ### TapRating with Labels
 
 ```tsx
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { TapRating } from "react-native-product-ratings";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { TapRating } from 'react-native-product-ratings';
 
 const ProductFeedbackScreen = () => {
   return (
@@ -138,14 +138,14 @@ const ProductFeedbackScreen = () => {
         size={35}
         showRatingText={true}
         ratingLabels={{
-          1: "Poor",
-          2: "Below Average",
-          3: "Good",
-          4: "Very Good",
-          5: "Excellent",
+          1: 'Poor',
+          2: 'Below Average',
+          3: 'Good',
+          4: 'Very Good',
+          5: 'Excellent',
         }}
         selectedColor="#4CAF50"
-        onFinishRating={(rating) => console.log(`Rated: ${rating}`)}
+        onFinishRating={rating => console.log(`Rated: ${rating}`)}
       />
     </View>
   );
@@ -154,15 +154,15 @@ const ProductFeedbackScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 16,
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 24,
-    color: "#333",
+    color: '#333',
   },
 });
 
@@ -174,12 +174,12 @@ export default ProductFeedbackScreen;
 You can use built-in icons or provide custom images:
 
 ```tsx
-import { Rating, RatingImage } from "react-native-product-ratings";
+import { Rating, RatingImage } from 'react-native-product-ratings';
 
 // Using built-in icons
 <Rating
   count={5}
-  RatingImage={(props) => (
+  RatingImage={props => (
     <RatingImage
       {...props}
       type="heart" // 'star' | 'heart' | 'bell' | 'rocket' | 'airbnb'
@@ -192,7 +192,7 @@ import { Rating, RatingImage } from "react-native-product-ratings";
 // Using custom images
 const CustomImage = ({ filled, size }) => (
   <Image
-    source={filled ? require("./filled.png") : require("./outline.png")}
+    source={filled ? require('./filled.png') : require('./outline.png')}
     style={{ width: size, height: size }}
   />
 );
@@ -275,7 +275,7 @@ import {
   RatingProps,
   StarRatingProps,
   TapRatingProps,
-} from "react-native-product-ratings";
+} from 'react-native-product-ratings';
 ```
 
 ## Examples
