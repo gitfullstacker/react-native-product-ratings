@@ -1,0 +1,3 @@
+[submodule "example"]
+	path = example
+	url = https://github.com/gitfullstacker/react-native-product-ratings-example.git
