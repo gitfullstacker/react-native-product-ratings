@@ -77,7 +77,6 @@
   },
   "files": [
     "lib/**/*",
-    "src/images/",
     "README.md",
     "LICENSE"
   ],
