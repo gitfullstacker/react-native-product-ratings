@@ -1,11 +1,11 @@
-# React Native Rating Library
+# react-native-product-ratings
 
 [![npm version](https://img.shields.io/npm/v/react-native-product-ratings.svg)](https://www.npmjs.com/package/react-native-product-ratings)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-product-ratings.svg)](https://www.npmjs.com/package/react-native-product-ratings)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/npm/l/react-native-product-ratings.svg)](./LICENSE)
 
-A comprehensive and customizable rating component library for React Native applications, featuring multiple rating styles and interaction methods.
+A fully customizable ratings component for React Native with multiple icon styles.
 
 ## Screenshots
 
@@ -22,283 +22,281 @@ A comprehensive and customizable rating component library for React Native appli
 
 ## Features
 
-- 🌟 Multiple rating components (Star, Tap, Swipe)
-- 🎨 Customizable icons (star, heart, bell, rocket, airbnb)
-- 🎯 Touch and swipe interactions
-- 📱 Fractional ratings support
-- 🎨 Fully customizable colors and sizes
-- 🔒 Readonly and disabled states
-- 📊 Rating labels and text display
-- 🌐 RTL support
+- ⭐ Multiple rating types (Star Rating, Swipe Rating, Tap Rating)
+- 🎨 Fully customizable styling
+- 📱 Compatible with React Native CLI
+- 👆 Interactive swipe and tap gestures
+- 🖼️ Support for custom rating images
+- 🔢 Optional rating display
+- 📊 Custom rating increments (whole, half, or fractional)
+- 🛠️ Full TypeScript support
+- ↔️ RTL layout support
+- 🏷️ Optional rating labels
 
 ## Installation
 
 ```bash
-npm install react-native-rating-library
-# or
-yarn add react-native-rating-library
+# Using npm
+npm install react-native-product-ratings
+
+# Using yarn
+yarn add react-native-product-ratings
 ```
 
-## Components
+## Usage
 
-### StarRating
+### StarRating Component
 
-Simple tap-to-rate component with optional half-rating support.
+```tsx
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { StarRating } from 'react-native-product-ratings';
 
-### TapRating
-
-Tap-based rating with customizable labels above ratings.
-
-### Rating
-
-Advanced swipe-enabled rating component with animations.
-
-### RatingImage
-
-Customizable rating icon component supporting multiple icon types.
-
-## Quick Start
-
-```jsx
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import { Rating, StarRating, TapRating } from 'react-native-rating-library';
-
-const App = () => {
-  const [rating, setRating] = useState(3);
-
+const ProductRatingScreen = () => {
   return (
-    <View style={{ padding: 20 }}>
-      {/* Basic Star Rating */}
+    <View style={styles.container}>
       <StarRating
+        defaultRating={3.5}
         count={5}
-        defaultRating={rating}
         size={40}
+        onFinishRating={rating => console.log(`Rating is: ${rating}`)}
         selectedColor="#FFD700"
-        onFinishRating={setRating}
-      />
-
-      {/* Tap Rating with Labels */}
-      <TapRating
-        count={5}
-        defaultRating={rating}
-        ratingLabels={{
-          1: 'Poor',
-          2: 'Fair',
-          3: 'Good',
-          4: 'Very Good',
-          5: 'Excellent',
-        }}
-        onFinishRating={setRating}
-      />
-
-      {/* Swipe Rating */}
-      <Rating
-        count={5}
-        startingValue={rating}
-        showRating
-        fractions={1}
-        onFinishRating={setRating}
+        allowHalfRating={true}
       />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+});
+
+export default ProductRatingScreen;
 ```
 
-## API Reference
+### Swipeable Rating Component
 
-### Common Props (RatingProps)
+```tsx
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Rating } from 'react-native-product-ratings';
 
-| Prop              | Type                     | Default            | Description                       |
-| ----------------- | ------------------------ | ------------------ | --------------------------------- |
-| `count`           | number                   | 5                  | Number of rating items to display |
-| `defaultRating`   | number                   | 0                  | Initial rating value              |
-| `size`            | number                   | 40                 | Size of rating icons              |
-| `selectedColor`   | string                   | '#F1C40F'          | Color for selected/filled ratings |
-| `unselectedColor` | string                   | '#BDC3C7'          | Color for unselected ratings      |
-| `readonly`        | boolean                  | false              | Prevents user interaction         |
-| `disabled`        | boolean                  | false              | Disables the component            |
-| `startingValue`   | number                   | 0                  | Starting value for rating         |
-| `onFinishRating`  | (rating: number) => void | -                  | Callback when rating is complete  |
-| `style`           | ViewStyle                | -                  | Custom container styles           |
-| `RatingImage`     | Component                | DefaultRatingImage | Custom rating icon component      |
+const SwipeRatingScreen = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>How would you rate this product?</Text>
+      <Rating
+        defaultRating={0}
+        count={5}
+        size={50}
+        showRating={true}
+        onSwipeRating={rating => console.log(`Current rating: ${rating}`)}
+        onFinishRating={rating => console.log(`Final rating: ${rating}`)}
+        selectedColor="#FF8C00"
+      />
+    </View>
+  );
+};
 
-### StarRating Props
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+    backgroundColor: '#F5F5F5',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+});
 
-Extends `RatingProps` with:
-
-| Prop              | Type           | Default | Description              |
-| ----------------- | -------------- | ------- | ------------------------ |
-| `allowHalfRating` | boolean        | false   | Enable half-star ratings |
-| `direction`       | 'ltr' \| 'rtl' | 'ltr'   | Layout direction         |
-
-### TapRating Props
-
-Extends `RatingProps` with:
-
-| Prop             | Type                   | Default | Description                  |
-| ---------------- | ---------------------- | ------- | ---------------------------- |
-| `ratingLabels`   | Record<number, string> | {}      | Labels for each rating value |
-| `labelStyle`     | object                 | -       | Custom label text styles     |
-| `showRatingText` | boolean                | true    | Show rating text above stars |
-
-### Rating Props
-
-Extends `RatingProps` with:
-
-| Prop            | Type                     | Default | Description                            |
-| --------------- | ------------------------ | ------- | -------------------------------------- |
-| `showRating`    | boolean                  | false   | Display current rating value           |
-| `fractions`     | number                   | 2       | Decimal places for rating value        |
-| `minValue`      | number                   | 0       | Minimum allowed rating                 |
-| `jumpValue`     | number                   | 0.5     | Rating increment on tap                |
-| `onSwipeRating` | (rating: number) => void | -       | Real-time rating callback during swipe |
-
-### RatingImage Props
-
-| Prop              | Type                                                | Default   | Description                         |
-| ----------------- | --------------------------------------------------- | --------- | ----------------------------------- |
-| `filled`          | boolean                                             | -         | Whether the icon is filled/selected |
-| `size`            | number                                              | -         | Icon size                           |
-| `tintColor`       | string                                              | '#F1C40F' | Color when filled                   |
-| `unselectedColor` | string                                              | '#BDC3C7' | Color when unfilled                 |
-| `type`            | 'star' \| 'heart' \| 'bell' \| 'rocket' \| 'airbnb' | 'star'    | Icon type                           |
-
-## Examples
-
-### Custom Icon Types
-
-```jsx
-import { StarRating, RatingImage } from 'react-native-rating-library';
-
-// Heart Rating
-<StarRating
-  count={5}
-  selectedColor="#FF6B6B"
-  RatingImage={(props) => (
-    <RatingImage {...props} type="heart" />
-  )}
-  onFinishRating={(rating) => console.log(rating)}
-/>
-
-// Bell Rating
-<StarRating
-  count={5}
-  selectedColor="#9C27B0"
-  RatingImage={(props) => (
-    <RatingImage {...props} type="bell" />
-  )}
-  onFinishRating={(rating) => console.log(rating)}
-/>
+export default SwipeRatingScreen;
 ```
 
-### Half Rating Support
+### TapRating with Labels
 
-```jsx
-<StarRating
-  count={5}
-  allowHalfRating={true}
-  defaultRating={3.5}
-  selectedColor="#FFD700"
-  onFinishRating={rating => console.log(rating)}
-/>
-```
+```tsx
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { TapRating } from 'react-native-product-ratings';
 
-### Swipe Rating with Display
+const ProductFeedbackScreen = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Rate your experience</Text>
+      <TapRating
+        count={5}
+        defaultRating={0}
+        size={35}
+        showRatingText={true}
+        ratingLabels={{
+          1: 'Poor',
+          2: 'Below Average',
+          3: 'Good',
+          4: 'Very Good',
+          5: 'Excellent',
+        }}
+        selectedColor="#4CAF50"
+        onFinishRating={rating => console.log(`Rated: ${rating}`)}
+      />
+    </View>
+  );
+};
 
-```jsx
-<Rating
-  count={5}
-  startingValue={0}
-  showRating={true}
-  fractions={1}
-  minValue={1}
-  onSwipeRating={rating => console.log('Swiping:', rating)}
-  onFinishRating={rating => console.log('Final:', rating)}
-/>
-```
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    color: '#333',
+  },
+});
 
-### Rating with Custom Labels
-
-```jsx
-<TapRating
-  count={5}
-  ratingLabels={{
-    1: 'Terrible',
-    2: 'Bad',
-    3: 'Okay',
-    4: 'Good',
-    5: 'Amazing',
-  }}
-  selectedColor="#FF9800"
-  onFinishRating={rating => console.log(rating)}
-/>
-```
-
-### Readonly Rating Display
-
-```jsx
-<StarRating count={5} defaultRating={4.2} readonly={true} selectedColor="#4CAF50" size={30} />
-```
-
-### RTL Support
-
-```jsx
-<StarRating
-  count={5}
-  direction="rtl"
-  selectedColor="#2196F3"
-  onFinishRating={rating => console.log(rating)}
-/>
-```
-
-## Styling
-
-All components accept a `style` prop for container customization:
-
-```jsx
-<StarRating
-  style={{
-    backgroundColor: '#f5f5f5',
-    padding: 15,
-    borderRadius: 10,
-    marginVertical: 10,
-  }}
-  // ... other props
-/>
+export default ProductFeedbackScreen;
 ```
 
 ## Custom Rating Images
 
-You can provide your own rating image component:
+You can use built-in icons or provide custom images:
 
-```jsx
-import { StarRating } from 'react-native-rating-library';
+```tsx
+import { Rating, RatingImage } from 'react-native-product-ratings';
 
-const CustomRatingImage = ({ filled, size, tintColor }) => (
-  <View
-    style={{
-      width: size,
-      height: size,
-      backgroundColor: filled ? tintColor : '#ccc',
-      borderRadius: size / 2,
-    }}
+// Using built-in icons
+<Rating
+  count={5}
+  RatingImage={props => (
+    <RatingImage
+      {...props}
+      type="heart" // 'star' | 'heart' | 'bell' | 'rocket' | 'airbnb'
+      tintColor="#FF6B6B" // Selected color
+      unselectedColor="#CCCCCC" // Outline color
+    />
+  )}
+/>;
+
+// Using custom images
+const CustomImage = ({ filled, size }) => (
+  <Image
+    source={filled ? require('./filled.png') : require('./outline.png')}
+    style={{ width: size, height: size }}
   />
 );
 
-<StarRating
-  RatingImage={CustomRatingImage}
-  // ... other props
-/>;
+<Rating RatingImage={CustomImage} />;
 ```
 
-## License
+**Available Icon Types:**
 
-MIT
+- `star`: Classic star rating
+- `heart`: Heart icons
+- `bell`: Bell icons
+- `rocket`: Rocket icons
+- `airbnb`: Airbnb-style stars
+
+**RatingImage Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `filled` | boolean | required | Whether icon should appear filled |
+| `size` | number | required | Icon dimensions |
+| `tintColor` | string | '#F1C40F' | Color for filled state |
+| `unselectedColor` | string | '#BDC3C7' | Color for outline state |
+| `type` | string | 'star' | Icon type to use |
+
+## API Reference
+
+### Common Props (All Components)
+
+| Prop             | Type                                  | Default            | Description                        |
+| ---------------- | ------------------------------------- | ------------------ | ---------------------------------- |
+| `count`          | number                                | 5                  | Number of rating images            |
+| `defaultRating`  | number                                | 0                  | Initial rating value               |
+| `size`           | number                                | 40                 | Size of rating images              |
+| `onFinishRating` | (rating: number) => void              | () => {}           | Callback when rating is completed  |
+| `selectedColor`  | string                                | '#F1C40F'          | Color for selected rating items    |
+| `readonly`       | boolean                               | false              | If true, rating cannot be modified |
+| `disabled`       | boolean                               | false              | If true, component is disabled     |
+| `style`          | StyleProp<ViewStyle>                  | {}                 | Custom container style             |
+| `startingValue`  | number                                | defaultRating      | Alternative initial rating         |
+| `RatingImage`    | React.ComponentType<RatingImageProps> | DefaultRatingImage | Custom rating image component      |
+
+### Rating Component (Swipe)
+
+Additional props:
+
+| Prop            | Type                     | Default  | Description               |
+| --------------- | ------------------------ | -------- | ------------------------- |
+| `onSwipeRating` | (rating: number) => void | () => {} | Callback during swipe     |
+| `showRating`    | boolean                  | false    | Show numeric rating value |
+| `fractions`     | number                   | 2        | Decimal precision         |
+| `minValue`      | number                   | 0        | Minimum rating value      |
+| `jumpValue`     | number                   | 0.5      | Rating increment for taps |
+
+### StarRating Component
+
+Additional props:
+
+| Prop              | Type           | Default | Description             |
+| ----------------- | -------------- | ------- | ----------------------- |
+| `allowHalfRating` | boolean        | false   | Allow half-star ratings |
+| `direction`       | 'ltr' \| 'rtl' | 'ltr'   | Layout direction        |
+
+### TapRating Component
+
+Additional props:
+
+| Prop             | Type                   | Default | Description             |
+| ---------------- | ---------------------- | ------- | ----------------------- |
+| `ratingLabels`   | Record<number, string> | {}      | Text labels for ratings |
+| `labelStyle`     | StyleProp<TextStyle>   | {}      | Style for labels        |
+| `showRatingText` | boolean                | true    | Show rating labels      |
+
+## TypeScript Support
+
+This package includes TypeScript definitions. You can import types directly:
+
+```tsx
+import {
+  RatingImageProps,
+  RatingProps,
+  StarRatingProps,
+  TapRatingProps,
+} from 'react-native-product-ratings';
+```
+
+## Examples
+
+Check out the examples directory for more usage examples:
+
+- Basic rating
+- Swipeable rating with fractional values
+- Custom images
+- TapRating with labels
+- RTL support
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please follow these steps:
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
+3. Commit your Changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the Branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
